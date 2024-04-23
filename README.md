@@ -71,6 +71,184 @@ The `getPrices` function fetches prices for selected products based on billing c
 
 Prices are stored in `productPrices` with product IDs as keys and their prices as values.
 
+## Handling Subscription
+
+```javascript
+import { usePaddle } from "react-paddle-hooks";
+
+const SubscriptionComponent = () => {
+  const { paddle, openCheckout, getPrices, productPrices, billingCycle } =
+    usePaddle({
+      environment: "sandbox",
+      token: "your_paddle_api_token",
+      eventCallback: (data) => {
+        // Handle Paddle events
+        console.log("Paddle event:", data);
+      },
+      checkoutSettings: {
+        successUrl: "/success",
+      },
+    });
+
+  const productDetails = [
+    {
+      productId: "product_1",
+      monthlyPriceId: "price_monthly_1",
+      yearlyPriceId: "price_yearly_1",
+    },
+    {
+      productId: "product_2",
+      monthlyPriceId: "price_monthly_2",
+      yearlyPriceId: "price_yearly_2",
+    },
+  ];
+
+  const handleSubscribe = () => {
+    const checkoutOptions = {
+      items: [
+        {
+          priceId:
+            billingCycle === "month"
+              ? productDetails[0].monthlyPriceId
+              : productDetails[0].yearlyPriceId,
+          quantity: 1,
+        },
+      ],
+      customer: {
+        email: "customer@example.com",
+      },
+      settings: {
+        displayMode: "overlay",
+        theme: "light",
+        locale: "en",
+      },
+    };
+
+    openCheckout(checkoutOptions);
+  };
+
+  return (
+    <div>
+      <h2>Subscription Plans</h2>
+      <div>
+        <label>
+          <input
+            type="radio"
+            value="month"
+            checked={billingCycle === "month"}
+            onChange={() => getPrices(productDetails, "month")}
+          />
+          Monthly
+        </label>
+        <label>
+          <input
+            type="radio"
+            value="year"
+            checked={billingCycle === "year"}
+            onChange={() => getPrices(productDetails, "year")}
+          />
+          Yearly
+        </label>
+      </div>
+      <ul>
+        {productDetails.map((product) => (
+          <li key={product.productId}>
+            {product.productId}:{" "}
+            {productPrices[product.productId] || "Loading..."}
+          </li>
+        ))}
+      </ul>
+      <button onClick={handleSubscribe}>Subscribe</button>
+    </div>
+  );
+};
+
+export default SubscriptionComponent;
+```
+
+## SubscriptionComponent Explanation
+
+### Importing the Hook
+
+```javascript
+import { usePaddle } from "react-paddle-hooks";
+```
+
+We're importing the usePaddle hook from the react-paddle-hooks package.
+
+### Initializing the Hook
+
+```javascript
+const { paddle, openCheckout, getPrices, productPrices, billingCycle } =
+  usePaddle({
+    environment: "sandbox",
+    token: "your_paddle_api_token",
+    eventCallback: (data) => {
+      // Handle Paddle events
+      console.log("Paddle event:", data);
+    },
+    checkoutSettings: {
+      successUrl: "/success",
+    },
+  });
+```
+
+1. usePaddle: Initializes the Paddle hook with specified options.
+2. paddle: Initialized Paddle instance.
+3. openCheckout: Function to open Paddle checkout.
+4. getPrices: Function to fetch prices based on billing cycle.
+5. productPrices: Object storing product prices.
+6. billingCycle: Current billing cycle ("month" or "year").
+
+### Product Details
+
+```javascript
+const productDetails = [
+  {
+    productId: "product_1",
+    monthlyPriceId: "price_monthly_1",
+    yearlyPriceId: "price_yearly_1",
+  },
+  {
+    productId: "product_2",
+    monthlyPriceId: "price_monthly_2",
+    yearlyPriceId: "price_yearly_2",
+  },
+];
+```
+
+Array containing details of products and their price IDs for monthly and yearly billing.
+
+### Subscription Handling
+
+```javascript
+const handleSubscribe = () => {
+  const checkoutOptions = {
+    items: [
+      {
+        priceId:
+          billingCycle === "month"
+            ? productDetails[0].monthlyPriceId
+            : productDetails[0].yearlyPriceId,
+        quantity: 1,
+      },
+    ],
+    customer: {
+      email: "customer@example.com",
+    },
+    settings: {
+      displayMode: "overlay",
+      theme: "light",
+      locale: "en",
+    },
+  };
+
+  openCheckout(checkoutOptions);
+};
+```
+
+`handleSubscribe`: Function to handle subscription. It sets checkout options based on the selected billing cycle and opens the checkout.
+
 ## Error Handling
 
 Errors during Paddle initialization or when calling `openCheckout` or `getPrices` are logged to the console.

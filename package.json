@@ -1,6 +1,6 @@
 {
   "name": "react-paddle-hooks",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A collection of React hooks for integrating Paddle payment platform",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
