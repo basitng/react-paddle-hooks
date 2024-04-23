@@ -12,11 +12,11 @@ bashCopy codenpm install @paddle/paddle-js react
 To use the usePaddle hook in your React component, import it and call it with the desired options:
 
 ```javascript
-import { useSubscription } from "react-paddle-hooks";
+import { usePaddle } from "react-paddle-hooks";
 
 const MyApp = () => {
   const { paddle, openCheckout, getPrices, productPrices, billingCycle } =
-    useSubscription({
+    usePaddle({
       environment: "sandbox",
       token: "your_paddle_token",
     });
