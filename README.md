@@ -4,8 +4,17 @@ The React paddle hooks is a custom React hook that provides integration with the
 
 ## Installation
 
+Paddle installation
+
+```bash
+npm i react-paddle-hooks
+```
+
 Before using the usePaddle hook, make sure you have installed the required dependencies:
-bashCopy codenpm install @paddle/paddle-js react
+
+```bash
+npm install @paddle/paddle-js react
+```
 
 ### Usage
 
