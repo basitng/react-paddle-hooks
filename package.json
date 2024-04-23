@@ -1,0 +1,37 @@
+{
+  "name": "react-paddle-hooks",
+  "version": "1.0.0",
+  "description": "A collection of React hooks for integrating Paddle payment platform",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "paddle",
+    "hooks",
+    "payment",
+    "integration"
+  ],
+  "author": "basitng2004@gmail.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/basitng/react-paddle-hooks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/basitng/react-paddle-hooks/issues"
+  },
+  "homepage": "https://github.com/basitng/react-paddle-hooks#readme",
+  "dependencies": {
+    "@paddle/paddle-js": "^1.0.3",
+    "@types/react": "^18.2.79",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
