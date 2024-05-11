@@ -124,7 +124,14 @@ const usePaddle = (options: PaddleHookOptions) => {
     }
   };
 
-  return { paddle, openCheckout, getPrices, productPrices, billingCycle };
+  return {
+    paddle,
+    openCheckout,
+    getPrices,
+    productPrices,
+    billingCycle,
+    setBillingCycle,
+  };
 };
 
 export default usePaddle;
